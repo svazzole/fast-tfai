@@ -1,0 +1,44 @@
+trainer:
+  task: classification
+  name: project_name
+  save_folder: /data/output
+  seed: 171717
+
+  dataset:
+    path: /data/
+    format: csv
+    is_splitted: false
+    split: true
+    method: group
+    validation_size: 0.2
+    test_size: 0.2
+    # augmentations:
+    #   num_augmentations: 5
+    #   RandomRotate90:
+    #     always_apply: true
+    #     p: 1
+    #   ColorJitter:
+    #     brightness: [0.8, 1.0]
+    #     p: 1
+    #   SafeRotate:
+    #     limit: [-45, 45]
+    #     p: 1
+
+  model:
+    name: densenet121
+    params:
+      input_shape: [224, 224, 3]
+      trainable_backbone: false
+    heatmap: true
+
+  train:
+    optimizer: adam
+    learning_rate: 0.001
+    learning_rate_finder: true
+    epochs: 100
+    batch_size: 16
+    patience: 30
+
+  publish:
+    mlflow: true
+    register_model: false
