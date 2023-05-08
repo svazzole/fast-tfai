@@ -12,6 +12,11 @@ FORMATS = ["folder", "csv"]
 
 
 @dataclass
+class AugmentationsConf:
+    ...
+
+
+@dataclass
 class DatasetConf:
     path: Path
     validation_size: float
@@ -49,6 +54,13 @@ class TrainConf:
 
 
 @dataclass
+class MLFlowConf:
+    url: str = field(default=None)
+    mlflow: bool = field(default=False)
+    register_model: bool = field(default=False)
+
+
+@dataclass
 class TrainerConf:
     task: str
     name: str
@@ -57,7 +69,7 @@ class TrainerConf:
     model: ModelConf
     train: TrainConf
 
-    publish: dict
+    publish: MLFlowConf
 
     seed: int = field(default=random.randint(a=0, b=1000000))
     version: str = field(init=False)
@@ -79,6 +91,7 @@ class TrainerConf:
         dataset_conf = DatasetConf(**cfg["dataset"])
         model_conf = ModelConf(**cfg["model"])
         train_conf = TrainConf(**cfg["train"])
+        publish_conf = MLFlowConf(**cfg["publish"])
 
         return TrainerConf(
             task=cfg["task"],
@@ -88,17 +101,11 @@ class TrainerConf:
             dataset=dataset_conf,
             model=model_conf,
             train=train_conf,
-            publish=cfg["publish"],
+            publish=publish_conf,
         )
 
 
-@dataclass
-class AugmentationsConf:
-    ...
-
-
 if __name__ == "__main__":
-
     from fast_tfai.utils.console import console, parse_cli
 
     args = parse_cli()

@@ -16,7 +16,7 @@ if shutil.which("podman"):
 if len(sys.argv) == 2:
     if sys.argv[1] == "build":
         subprocess.run(
-            [command, "build", "-f", "Dockerfile", "-t", f"inspair:v{version}", "."]
+            [command, "build", "-f", "Dockerfile", "-t", f"fast-tfai:v{version}", "."]
         )
     elif sys.argv[1] == "run":
         subprocess.run(
@@ -28,7 +28,7 @@ if len(sys.argv) == 2:
                 "/path/to/dataset/:/data",
                 "-v",
                 "/path/to/yaml:/app/conf/params.yaml",
-                f"inspair:v{version}",
+                f"fast-tfai:v{version}",
             ]
         )
     elif sys.argv[1] == "run-gpu":
@@ -41,7 +41,7 @@ if len(sys.argv) == 2:
                 "/path/to/dataset/:/data",
                 "-v",
                 "/path/to/yaml:/app/conf/params.yaml",
-                f"inspair:v{version}",
+                f"fast-tfai:v{version}",
             ]
         )
     else:

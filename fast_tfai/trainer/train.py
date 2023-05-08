@@ -320,7 +320,7 @@ def train():
     trainer.train(dataset)
     trainer.save(heatmap=trainer_conf.model.heatmap)
 
-    if trainer_conf.publish.get("mlflow", False):
+    if trainer_conf.publish.mlflow and trainer_conf.publish.url:
         trainer.publish()
 
 

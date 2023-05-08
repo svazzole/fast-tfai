@@ -1,0 +1,46 @@
+trainer:
+  task: classification
+  name: project_name
+  save_folder: /home/svazzole/Documents/data/outputs/cat_vs_dogs/300
+  seed: 171717
+
+  dataset:
+    path: /home/svazzole/Documents/data/dogs_cats_300/
+    format: folder
+    is_splitted: false
+    split: true
+    method: std
+    validation_size: 0.3
+    test_size: 0.3
+    augmentations:
+      num_augmentations: 5
+      RandomRotate90:
+        always_apply: true
+        p: 1
+      ColorJitter:
+        brightness: [0.8, 1.0]
+        p: 1
+      SafeRotate:
+        limit: [-45, 45]
+        p: 1
+
+
+  model:
+    name: densenet121
+    params:
+      input_shape: [224, 224, 3]
+      trainable_backbone: false
+    heatmap: true
+
+  train:
+    optimizer: adam
+    learning_rate: 0.001
+    learning_rate_finder: true
+    epochs: 100
+    batch_size: 4
+    patience: 30
+
+  publish:
+    url: null
+    mlflow: false
+    register_model: false

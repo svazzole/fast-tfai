@@ -1,6 +1,6 @@
-FROM nvidia/cuda:11.5.2-runtime-ubuntu20.04 AS base
+FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04 AS base
 
-# FROM nvidia/cuda:12.1.0-runtime-ubuntu22.04 AS base
+# FROM nvidia/cuda:11.5.2-runtime-ubuntu20.04 AS base
 # ENV PYTHON_VERSION=3.9.10
 
 ENV DEBIAN_FRONTEND=noninteractive
